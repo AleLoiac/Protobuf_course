@@ -3,6 +3,7 @@ package main
 import (
 	"Protobuf/src/simple"
 	"fmt"
+	"github.com/golang/protobuf/jsonpb"
 	"github.com/golang/protobuf/proto"
 	"log"
 	"os"
@@ -46,14 +47,26 @@ func readFromFile(fileName string, pb proto.Message) {
 	}
 }
 
+// encrypts the message to a JSON format
+func toJSON(pb proto.Message) string {
+	marshaler := jsonpb.Marshaler{}
+	out, err := marshaler.MarshalToString(pb)
+	if err != nil {
+		log.Fatalf("Can't converto to JSON: %v", err)
+	}
+	return out
+}
+
 func main() {
+
 	sm := doSimple()
 
 	writeToFile("simple.bin", sm)
 
 	sm2 := &simple.SimpleMessage{}
-
 	readFromFile("simple.bin", sm2)
-
 	fmt.Println(sm2)
+
+	smAsString := toJSON(sm)
+	fmt.Println(smAsString)
 }
