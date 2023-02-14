@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package person;
+
+import "date.proto";
+
+// identify users
+message Person {
+  int32 age = 1;
+  string first_name = 2;
+  string last_name = 3;
+  bytes small_picture = 4;   // represents a small .jpg file
+  bool is_verified = 5;
+  float height = 6;          // height of the user in cms
+
+  repeated string phone_numbers = 7;
+
+  enum eyeColour {
+      UNKNOWN_COLOUR = 0;
+      BROWN = 1;
+      BLUE = 2;
+      GREEN = 3;
+  }
+
+  eyeColour eye_colour = 8;
+
+  my.date.Date birthday = 9; // imported from the date.proto file
+
+  repeated Address addresses = 10; // declared outside
+}
+
+message Address {
+  string address_line_1 = 1;
+  string address_line_2 = 2;
+  string cap = 3;
+  string city = 4;
+  string country = 5;
+}
