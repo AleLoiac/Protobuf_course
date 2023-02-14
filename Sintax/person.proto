@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package person;
 
-import "date.proto";
+import "Sintax/date.proto";
 
 // identify users
 message Person {
