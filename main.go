@@ -15,7 +15,6 @@ func doSimple() *simple.SimpleMessage {
 		Name:       "Sample message",
 		SampleList: []int32{1, 3, 5, 7},
 	}
-	fmt.Println(sm)
 
 	fmt.Println(sm.GetId())
 
