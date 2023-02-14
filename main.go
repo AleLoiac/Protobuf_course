@@ -3,9 +3,12 @@ package main
 import (
 	"Protobuf/src/simple"
 	"fmt"
+	"github.com/golang/protobuf/proto"
+	"log"
+	"os"
 )
 
-func doSimple() {
+func doSimple() *simple.SimpleMessage {
 	sm := simple.SimpleMessage{
 		Id:         12345,
 		IsSimple:   true,
@@ -15,8 +18,43 @@ func doSimple() {
 	fmt.Println(sm)
 
 	fmt.Println(sm.GetId())
+
+	return &sm
+}
+
+func writeToFile(fileName string, pb proto.Message) {
+	out, err := proto.Marshal(pb)
+	if err != nil {
+		log.Fatalf("Marshaling error: %v", err)
+	}
+
+	if err := os.WriteFile(fileName, out, 0644); err != nil {
+		log.Fatalf("Can't write to file: %v", err)
+	}
+
+	fmt.Println("Data has been written")
+}
+
+func readFromFile(fileName string, pb proto.Message) {
+	in, err := os.ReadFile(fileName)
+	if err != nil {
+		log.Fatalf("Reading error: %v", err)
+	}
+
+	err2 := proto.Unmarshal(in, pb)
+	if err2 != nil {
+		log.Fatalf("Unmarshalling problem: %v", err2)
+	}
 }
 
 func main() {
-	doSimple()
+	sm := doSimple()
+
+	writeToFile("simple.bin", sm)
+
+	sm2 := &simple.SimpleMessage{}
+
+	readFromFile("simple.bin", sm2)
+
+	fmt.Println(sm2)
 }
