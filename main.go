@@ -57,6 +57,13 @@ func toJSON(pb proto.Message) string {
 	return out
 }
 
+func fromJSON(in string, pb proto.Message) {
+	err := jsonpb.UnmarshalString(in, pb)
+	if err != nil {
+		log.Fatalf("Counldn't unmarshal the JSON: %v", err)
+	}
+}
+
 func main() {
 
 	sm := doSimple()
@@ -69,4 +76,8 @@ func main() {
 
 	smAsString := toJSON(sm)
 	fmt.Println(smAsString)
+
+	sm3 := &simple.SimpleMessage{}
+	fromJSON(smAsString, sm3)
+	fmt.Println(sm3)
 }
