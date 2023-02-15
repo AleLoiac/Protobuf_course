@@ -1,6 +1,7 @@
 package main
 
 import (
+	"Protobuf/src/enum"
 	"Protobuf/src/simple"
 	"fmt"
 	"github.com/golang/protobuf/jsonpb"
@@ -17,7 +18,7 @@ func doSimple() *simple.SimpleMessage {
 		SampleList: []int32{1, 3, 5, 7},
 	}
 
-	fmt.Println(sm.GetId())
+	//fmt.Println(sm.GetId())
 
 	return &sm
 }
@@ -64,20 +65,41 @@ func fromJSON(in string, pb proto.Message) {
 	}
 }
 
+func doEnum() {
+	em := enum.EnumMessage{
+		Id:           42,
+		DayOfTheWeek: enum.DayOfTheWeek_FRIDAY,
+	}
+
+	em.DayOfTheWeek = enum.DayOfTheWeek_WEDNESDAY
+
+	//fmt.Println(em)
+
+	fmt.Println(em.GetDayOfTheWeek())
+}
+
 func main() {
 
+	// creates a simple message
 	sm := doSimple()
 
+	// writes the message to a binary file
 	writeToFile("simple.bin", sm)
 
+	// reads the binary file and unmarshals the content to a protobuf message
 	sm2 := &simple.SimpleMessage{}
 	readFromFile("simple.bin", sm2)
 	fmt.Println(sm2)
 
+	// encrypts the message to a JSON format
 	smAsString := toJSON(sm)
 	fmt.Println(smAsString)
 
+	// takes a string in a JSON format and unmarshals it to a protobuf message
 	sm3 := &simple.SimpleMessage{}
 	fromJSON(smAsString, sm3)
 	fmt.Println(sm3)
+
+	// creates an enum
+	doEnum()
 }
