@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package complex;
+
+option go_package = "./complex";
+
+// nested messages
+message ComplexMessage {
+  BasicMessage one_Message = 2;
+  repeated BasicMessage multiple_message = 3;
+}
+
+message BasicMessage {
+  int32 id = 1;
+  string name = 2;
+}

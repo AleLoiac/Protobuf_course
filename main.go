@@ -78,6 +78,10 @@ func doEnum() {
 	fmt.Println(em.GetDayOfTheWeek())
 }
 
+func doComplex() {
+	//complex.ComplexMessage{}
+}
+
 func main() {
 
 	// creates a simple message
