@@ -1,6 +1,7 @@
 package main
 
 import (
+	"Protobuf/src/complex"
 	"Protobuf/src/enum"
 	"Protobuf/src/simple"
 	"fmt"
@@ -79,7 +80,7 @@ func doEnum() {
 }
 
 func doComplex() {
-	//complex.ComplexMessage{}
+	complex.ComplexMessage{}
 }
 
 func main() {
