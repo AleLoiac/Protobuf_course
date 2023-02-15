@@ -80,7 +80,24 @@ func doEnum() {
 }
 
 func doComplex() {
-	complex.ComplexMessage{}
+	cm := complex.ComplexMessage{
+		One_Message: &complex.BasicMessage{
+			Id:   1,
+			Name: "First message",
+		},
+		MultipleMessage: []*complex.BasicMessage{
+			&complex.BasicMessage{
+				Id:   2,
+				Name: "Second message",
+			},
+			&complex.BasicMessage{
+				Id:   3,
+				Name: "Third message",
+			},
+		},
+	}
+
+	fmt.Println(cm)
 }
 
 func main() {
@@ -107,4 +124,7 @@ func main() {
 
 	// creates an enum
 	doEnum()
+
+	// creates nested messages
+	doComplex()
 }
