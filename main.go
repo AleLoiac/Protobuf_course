@@ -49,7 +49,6 @@ func readFromFile(fileName string, pb proto.Message) {
 	}
 }
 
-// encrypts the message to a JSON format
 func toJSON(pb proto.Message) string {
 	marshaler := jsonpb.Marshaler{}
 	out, err := marshaler.MarshalToString(pb)
